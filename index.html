@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sergio Sebastian Serva Mariño | Single Page</title>
+    <meta
+      name="description"
+      content="Perfil personal de Sergio Sebastian Serva Mariño, estudiante de Diseno y Desarrollo de Software en TECSUP."
+    />
+    <meta name="theme-color" content="#101522" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #07101a;
+        --overlay: rgba(5, 9, 16, 0.76);
+        --card: rgba(12, 18, 28, 0.72);
+        --card-strong: rgba(16, 23, 35, 0.88);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: #f5f1e8;
+        --muted: rgba(245, 241, 232, 0.7);
+        --accent: #f29a5c;
+        --accent-soft: rgba(242, 154, 92, 0.16);
+        --teal: #74d6cb;
+        --shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        position: relative;
+        overflow-x: hidden;
+        font-family: "Space Grotesk", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: -6%;
+        z-index: -2;
+        background:
+          linear-gradient(180deg, rgba(6, 10, 17, 0.36), rgba(6, 10, 17, 0.8)),
+          radial-gradient(circle at top left, rgba(116, 214, 203, 0.18), transparent 32%),
+          radial-gradient(circle at right, rgba(242, 154, 92, 0.24), transparent 34%),
+          url("background.gif") center center / cover no-repeat;
+        transform: scale(1.08);
+        animation: drift 18s ease-in-out infinite;
+        filter: saturate(1.06);
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.4), transparent 92%);
+        pointer-events: none;
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          transform: scale(1.08) translate3d(0, 0, 0);
+        }
+        50% {
+          transform: scale(1.13) translate3d(1.5%, -1.5%, 0);
+        }
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 28px 18px;
+      }
+
+      .profile-card {
+        width: min(960px, 100%);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        background: linear-gradient(180deg, rgba(15, 22, 34, 0.84), rgba(10, 16, 25, 0.72));
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .intro {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 22px;
+        padding: 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .avatar-wrap {
+        width: 132px;
+        height: 132px;
+        padding: 8px;
+        border-radius: 28px;
+        background:
+          linear-gradient(145deg, rgba(242, 154, 92, 0.28), rgba(116, 214, 203, 0.18)),
+          rgba(255, 255, 255, 0.03);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      }
+
+      .avatar-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 22px;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--teal);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        line-height: 0.94;
+        max-width: 10ch;
+      }
+
+      .role {
+        margin: 14px 0 0;
+        color: var(--text);
+        font-size: 1.02rem;
+        line-height: 1.7;
+        max-width: 55ch;
+      }
+
+      .mini-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .mini-pill {
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-size: 0.9rem;
+      }
+
+      .data-note {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.7;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 20px 28px 0;
+      }
+
+      .tab-button {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        padding: 10px 16px;
+        cursor: pointer;
+        transition:
+          transform 160ms ease,
+          background-color 160ms ease,
+          color 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .tab-button:hover,
+      .tab-button:focus-visible {
+        transform: translateY(-1px);
+        color: var(--text);
+        border-color: rgba(255, 255, 255, 0.18);
+        outline: none;
+      }
+
+      .tab-button.is-active {
+        background: var(--accent-soft);
+        color: var(--text);
+        border-color: rgba(242, 154, 92, 0.3);
+      }
+
+      .panel-shell {
+        padding: 22px 28px 28px;
+      }
+
+      .panel {
+        display: none;
+        min-height: 290px;
+        animation: fadeIn 220ms ease;
+      }
+
+      .panel.is-active {
+        display: grid;
+        align-content: start;
+        gap: 18px;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .panel-copy {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 62ch;
+      }
+
+      .simple-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .small-card,
+      .project-card,
+      .link-card,
+      .tech-card {
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .small-card {
+        padding: 18px;
+      }
+
+      .small-card span {
+        display: inline-block;
+        margin-bottom: 8px;
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .small-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .tech-card {
+        padding: 18px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .tech-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .tech-head strong {
+        font-size: 1rem;
+      }
+
+      .tech-head span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .bar-track {
+        width: 100%;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.09);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--teal), var(--accent));
+        transition: width 700ms cubic-bezier(0.2, 1, 0.22, 1);
+      }
+
+      .projects-list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .project-card {
+        padding: 18px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .project-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .project-label {
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(116, 214, 203, 0.1);
+        color: var(--teal);
+        font-size: 0.86rem;
+        font-weight: 700;
+      }
+
+      .project-date {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .project-card h3 {
+        margin: 0;
+        font-size: 1.08rem;
+      }
+
+      .project-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .project-card a {
+        color: var(--accent);
+        font-weight: 700;
+        width: fit-content;
+      }
+
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .link-card {
+        padding: 18px;
+        display: grid;
+        gap: 8px;
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          background-color 160ms ease;
+      }
+
+      .link-card:hover,
+      .link-card:focus-visible {
+        transform: translateY(-2px);
+        border-color: rgba(242, 154, 92, 0.28);
+        background: rgba(255, 255, 255, 0.07);
+        outline: none;
+      }
+
+      .link-card strong {
+        font-size: 1rem;
+      }
+
+      .link-card span {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .footer-note {
+        padding: 0 28px 26px;
+        color: rgba(245, 241, 232, 0.55);
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 760px) {
+        .intro,
+        .simple-grid,
+        .tech-grid,
+        .links-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .intro {
+          padding: 22px;
+        }
+
+        .tabs,
+        .panel-shell,
+        .footer-note {
+          padding-left: 22px;
+          padding-right: 22px;
+        }
+
+        .avatar-wrap {
+          width: 108px;
+          height: 108px;
+        }
+
+        h1 {
+          max-width: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <article class="profile-card">
+        <section class="intro">
+          <div class="avatar-wrap">
+            <img
+              id="avatar"
+              src="https://avatars.githubusercontent.com/u/175072495?v=4"
+              alt="Avatar de Sergio Sebastian Serva Mariño"
+            />
+          </div>
+
+          <div>
+            <p class="eyebrow">Sergio Sebastian Serva Mariño</p>
+            <h1>Estudiante de Diseno y Desarrollo de Software.</h1>
+            <p class="role">
+              Actualmente estudio en TECSUP y me gusta seguir creciendo a traves de
+              proyectos web, mobile y backend.
+            </p>
+            <div class="mini-meta" id="mini-meta"></div>
+            <p class="data-note" id="data-note">
+              Esta pagina resume mi perfil en una sola vista.
+            </p>
+          </div>
+        </section>
+
+        <nav class="tabs" aria-label="Secciones del perfil">
+          <button class="tab-button is-active" data-tab="about" aria-selected="true">
+            Sobre mi
+          </button>
+          <button class="tab-button" data-tab="stack" aria-selected="false">
+            Tecnologias
+          </button>
+          <button class="tab-button" data-tab="projects" aria-selected="false">
+            Proyectos
+          </button>
+          <button class="tab-button" data-tab="links" aria-selected="false">
+            Redes
+          </button>
+        </nav>
+
+        <section class="panel-shell">
+          <section class="panel is-active" id="panel-about">
+            <h2>Sobre mi</h2>
+            <p class="panel-copy">
+              Soy Sergio Sebastian Serva Mariño. Me encuentro formandome en TECSUP y
+              disfruto aprender construyendo proyectos que me permitan avanzar en distintas
+              areas del desarrollo de software.
+            </p>
+            <div class="simple-grid">
+              <article class="small-card">
+                <span>Formacion</span>
+                <p>Diseno y Desarrollo de Software en TECSUP.</p>
+              </article>
+              <article class="small-card">
+                <span>Interes</span>
+                <p>Me atrae combinar interfaces, apps moviles y logica backend.</p>
+              </article>
+              <article class="small-card">
+                <span>GitHub</span>
+                <p>Uso mis proyectos publicos para mostrar lo que voy aprendiendo.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-stack">
+            <h2>Tecnologias</h2>
+            <p class="panel-copy">
+              Estas son algunas de las tecnologias que mas se repiten en mis proyectos
+              publicados.
+            </p>
+            <div class="tech-grid" id="tech-grid"></div>
+          </section>
+
+          <section class="panel" id="panel-projects">
+            <h2>Proyectos</h2>
+            <p class="panel-copy">
+              Una seleccion breve de trabajos que representan bien mi proceso actual.
+            </p>
+            <div class="projects-list" id="projects-list"></div>
+          </section>
+
+          <section class="panel" id="panel-links">
+            <h2>Redes</h2>
+            <p class="panel-copy">
+              Si quieres ver mas sobre mi trabajo o seguir mi recorrido, aqui tienes mis
+              enlaces principales.
+            </p>
+            <div class="links-grid">
+              <a class="link-card" href="https://github.com/sesema98" target="_blank" rel="noreferrer">
+                <strong>GitHub</strong>
+                <span>Mis repositorios publicos y proyectos recientes.</span>
+              </a>
+              <a class="link-card" href="https://www.linkedin.com/in/sergio-serva-marino/" target="_blank" rel="noreferrer">
+                <strong>LinkedIn</strong>
+                <span>Mi perfil profesional y recorrido academico.</span>
+              </a>
+              <a class="link-card" href="https://www.instagram.com/l_i_m_p_l_e_r_kb43z?igsh=MTJ6NnB2aWl1dG96Ng%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">
+                <strong>Instagram</strong>
+                <span>Una parte mas personal de mi presencia en linea.</span>
+              </a>
+              <a class="link-card" href="https://www.facebook.com/share/1HSpvtEXAk/?mibextid=wwXIfr" target="_blank" rel="noreferrer">
+                <strong>Facebook</strong>
+                <span>Otro punto de contacto para conocer mas sobre mi.</span>
+              </a>
+            </div>
+          </section>
+        </section>
+
+        <div class="footer-note">
+          Fondo preparado para usar <code>background.gif</code> en esta misma carpeta.
+        </div>
+      </article>
+    </main>
+
+    <script>
+      const GITHUB_USER = "sesema98";
+      const SNAPSHOT_DATE = "2026-03-25";
+      const PREFERRED_PROJECTS = [
+        "Moviles-Bucles",
+        "EventosFirebase",
+        "GestionHospitalaria",
+        "Tareas-app",
+        "Semaforo_Inteligente_Postura",
+        "rickymorty-react-serva",
+      ];
+
+      const fallbackData = {
+        user: {
+          login: "sesema98",
+          avatar_url: "https://avatars.githubusercontent.com/u/175072495?v=4",
+          public_repos: 49,
+          created_at: "2024-07-09T01:08:18Z",
+        },
+        repos: [
+          {
+            name: "Moviles-Bucles",
+            language: "Swift",
+            description: "",
+            pushed_at: "2026-03-23T16:54:51Z",
+            html_url: "https://github.com/sesema98/Moviles-Bucles",
+            fork: false,
+          },
+          {
+            name: "EventosFirebase",
+            language: "Kotlin",
+            description: "",
+            pushed_at: "2025-12-05T19:42:11Z",
+            html_url: "https://github.com/sesema98/EventosFirebase",
+            fork: false,
+          },
+          {
+            name: "GestionHospitalaria",
+            language: "Java",
+            description:
+              "API RESTful en Spring Boot para gestionar pacientes, citas, historias clinicas y facturacion.",
+            pushed_at: "2025-10-19T00:00:00Z",
+            html_url: "https://github.com/sesema98/GestionHospitalaria",
+            fork: false,
+          },
+          {
+            name: "Tareas-app",
+            language: "JavaScript",
+            description: "",
+            pushed_at: "2026-03-21T17:38:39Z",
+            html_url: "https://github.com/sesema98/Tareas-app",
+            fork: false,
+          },
+          {
+            name: "Semaforo_Inteligente_Postura",
+            language: "Python",
+            description:
+              "Proyecto orientado a generar conciencia postural mediante cambios visuales.",
+            pushed_at: "2025-11-03T00:00:00Z",
+            html_url: "https://github.com/sesema98/Semaforo_Inteligente_Postura",
+            fork: false,
+          },
+          {
+            name: "rickymorty-react-serva",
+            language: "JavaScript",
+            description:
+              "Aplicacion que consume datos desde la API de Rick and Morty en React.",
+            pushed_at: "2025-11-06T00:00:00Z",
+            html_url: "https://github.com/sesema98/rickymorty-react-serva",
+            fork: false,
+          },
+        ],
+        languageSummary: [
+          { language: "Python", count: 12 },
+          { language: "Java", count: 10 },
+          { language: "Kotlin", count: 9 },
+          { language: "JavaScript", count: 8 },
+          { language: "HTML", count: 4 },
+          { language: "Swift", count: 1 },
+        ],
+      };
+
+      const shortDate = new Intl.DateTimeFormat("es-PE", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+
+      const monthYear = new Intl.DateTimeFormat("es-PE", {
+        month: "long",
+        year: "numeric",
+      });
+
+      const avatar = document.querySelector("#avatar");
+      const miniMeta = document.querySelector("#mini-meta");
+      const dataNote = document.querySelector("#data-note");
+      const techGrid = document.querySelector("#tech-grid");
+      const projectsList = document.querySelector("#projects-list");
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const panels = document.querySelectorAll(".panel");
+
+      function toDateValue(value) {
+        return value ? new Date(value).getTime() : 0;
+      }
+
+      function normalizeRepos(repos) {
+        return repos.filter((repo) => !repo.fork && repo.name !== GITHUB_USER);
+      }
+
+      function getLanguageStats(repos, fallbackStats) {
+        const counts = new Map();
+
+        repos.forEach((repo) => {
+          if (!repo.language) return;
+          counts.set(repo.language, (counts.get(repo.language) || 0) + 1);
+        });
+
+        const computed = Array.from(counts.entries())
+          .map(([language, count]) => ({ language, count }))
+          .sort((left, right) => right.count - left.count);
+
+        return computed.length ? computed : fallbackStats;
+      }
+
+      function getFeaturedRepos(repos) {
+        const repoMap = new Map(repos.map((repo) => [repo.name, repo]));
+        const selected = [];
+
+        PREFERRED_PROJECTS.forEach((name) => {
+          const repo = repoMap.get(name);
+          if (repo && !selected.find((item) => item.name === repo.name)) {
+            selected.push(repo);
+          }
+        });
+
+        return selected.slice(0, 3);
+      }
+
+      function getRepoDescription(repo) {
+        if (repo.description && repo.description.trim()) {
+          return repo.description.trim();
+        }
+
+        if (repo.language === "Kotlin" || repo.language === "Swift") {
+          return `Proyecto de practica enfocado en desarrollo movil con ${repo.language}.`;
+        }
+
+        if (repo.language === "JavaScript" || repo.language === "TypeScript" || repo.language === "HTML") {
+          return `Proyecto orientado a interfaces o experiencias web con ${repo.language}.`;
+        }
+
+        if (repo.language === "Java" || repo.language === "Python") {
+          return `Proyecto donde trabajo logica, servicios o resolucion tecnica con ${repo.language}.`;
+        }
+
+        return "Parte de mi proceso de aprendizaje y practica.";
+      }
+
+      function renderMiniMeta(user, repos, languages) {
+        const items = [
+          `${user.public_repos || repos.length} repos`,
+          `GitHub desde ${new Date(user.created_at).getFullYear()}`,
+          `${languages.slice(0, 3).map((item) => item.language).join(" / ")}`,
+        ];
+
+        miniMeta.replaceChildren(
+          ...items.map((text) => {
+            const span = document.createElement("span");
+            span.className = "mini-pill";
+            span.textContent = text;
+            return span;
+          })
+        );
+      }
+
+      function renderTechGrid(languages) {
+        const maxCount = Math.max(...languages.map((item) => item.count), 1);
+
+        techGrid.replaceChildren(
+          ...languages.slice(0, 4).map((item) => {
+            const card = document.createElement("article");
+            card.className = "tech-card";
+
+            const head = document.createElement("div");
+            head.className = "tech-head";
+
+            const title = document.createElement("strong");
+            title.textContent = item.language;
+
+            const count = document.createElement("span");
+            count.textContent = `${item.count} repos`;
+
+            head.append(title, count);
+
+            const track = document.createElement("div");
+            track.className = "bar-track";
+
+            const fill = document.createElement("div");
+            fill.className = "bar-fill";
+            fill.dataset.width = `${Math.max(14, (item.count / maxCount) * 100)}%`;
+
+            track.append(fill);
+            card.append(head, track);
+            return card;
+          })
+        );
+
+        requestAnimationFrame(() => {
+          document.querySelectorAll(".bar-fill").forEach((fill) => {
+            fill.style.width = fill.dataset.width;
+          });
+        });
+      }
+
+      function renderProjects(repos) {
+        projectsList.replaceChildren(
+          ...repos.map((repo) => {
+            const card = document.createElement("article");
+            card.className = "project-card";
+
+            const top = document.createElement("div");
+            top.className = "project-top";
+
+            const label = document.createElement("span");
+            label.className = "project-label";
+            label.textContent = repo.language || "Proyecto";
+
+            const date = document.createElement("span");
+            date.className = "project-date";
+            date.textContent = shortDate.format(new Date(repo.pushed_at));
+
+            top.append(label, date);
+
+            const title = document.createElement("h3");
+            title.textContent = repo.name;
+
+            const copy = document.createElement("p");
+            copy.textContent = getRepoDescription(repo);
+
+            const link = document.createElement("a");
+            link.href = repo.html_url;
+            link.target = "_blank";
+            link.rel = "noreferrer";
+            link.textContent = "Ver proyecto";
+
+            card.append(top, title, copy, link);
+            return card;
+          })
+        );
+      }
+
+      function activateTab(tabId) {
+        tabButtons.forEach((button) => {
+          const isActive = button.dataset.tab === tabId;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-selected", String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("is-active", panel.id === `panel-${tabId}`);
+        });
+
+        history.replaceState(null, "", `#${tabId}`);
+      }
+
+      async function loadProfile() {
+        try {
+          const [userResponse, reposResponse] = await Promise.all([
+            fetch(`https://api.github.com/users/${GITHUB_USER}`),
+            fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`),
+          ]);
+
+          if (!userResponse.ok || !reposResponse.ok) {
+            throw new Error("GitHub unavailable");
+          }
+
+          const [user, repos] = await Promise.all([userResponse.json(), reposResponse.json()]);
+          const safeRepos = normalizeRepos(repos);
+          const languages = getLanguageStats(safeRepos, fallbackData.languageSummary);
+
+          avatar.src = user.avatar_url || fallbackData.user.avatar_url;
+          renderMiniMeta(user, safeRepos, languages);
+          renderTechGrid(languages);
+          renderProjects(getFeaturedRepos(safeRepos));
+          dataNote.textContent = `Esta vista se apoya en mis proyectos publicos de GitHub y muestra informacion reciente hasta ${monthYear.format(new Date(Math.max(...safeRepos.map((repo) => toDateValue(repo.pushed_at)))))}.`;
+        } catch (error) {
+          const safeRepos = normalizeRepos(fallbackData.repos);
+          const languages = getLanguageStats(safeRepos, fallbackData.languageSummary);
+
+          avatar.src = fallbackData.user.avatar_url;
+          renderMiniMeta(fallbackData.user, safeRepos, languages);
+          renderTechGrid(languages);
+          renderProjects(getFeaturedRepos(safeRepos));
+          dataNote.textContent = `Esta vista usa una copia reciente de mi perfil publico, actualizada el ${monthYear.format(new Date(`${SNAPSHOT_DATE}T00:00:00`))}.`;
+        }
+      }
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => activateTab(button.dataset.tab));
+      });
+
+      const initialTab = location.hash.replace("#", "");
+      activateTab(["about", "stack", "projects", "links"].includes(initialTab) ? initialTab : "about");
+      loadProfile();
+    </script>
+  </body>
+</html>
